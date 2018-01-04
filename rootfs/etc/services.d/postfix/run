@@ -1,0 +1,11 @@
+#!/bin/sh
+
+trap "{ postfix stop; exit 0; }" SIGINT SIGTERM
+#make -C /etc/postfix
+postfix start
+
+PID=$(cat /var/spool/postfix/pid/master.pid)
+
+while kill -0 $PID; do
+	sleep 1
+done
